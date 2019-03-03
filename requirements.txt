@@ -2,3 +2,6 @@ gensim
 nltk
 numpy
 pandas
+beautifulsoup4
+lxml
+chardet
