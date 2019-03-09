@@ -23,8 +23,21 @@ class HtmlStripper:
 
         soup = BeautifulSoup(cleaned, 'lxml')
         text_lines = soup.findAll(text=True)
-        text_lines = [self.strip(line) for line in text_lines if len(self.strip(line)) > 128]
-        print(' '.join(text_lines))
+
+        text_lines_merged = []
+        merge_str = ''
+
+        text_lines_merged.append(text_lines[0])
+        for line in text_lines[1:]:
+            if '\n' == line or '' == line or ' ' == line:
+                if merge_str is not '':
+                    text_lines_merged.append(merge_str)
+                merge_str = ''
+            else:
+                merge_str += (' ' + line)
+
+        text_lines_merged = [self.strip(line) for line in text_lines_merged if len(self.strip(line)) > 128]
+        print(' '.join(text_lines_merged))
 
     def strip(self, text: str):
         return text.replace('\t', '').replace('\n', '').strip()
