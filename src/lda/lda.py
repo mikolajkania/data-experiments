@@ -1,3 +1,5 @@
+import datetime
+
 import nltk
 import numpy as np
 import pandas as pd
@@ -86,5 +88,12 @@ class Lda:
 
 
 if __name__ == '__main__':
+    start = datetime.datetime.now()
+    print(start)
+
     lda = Lda()
     lda.main()
+
+    end = datetime.datetime.now()
+    print(end)
+    print(end - start)
