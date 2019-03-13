@@ -84,7 +84,7 @@ class Lda:
 
         print('TfIdf:')
         for index, score in sorted(lda_model_tfidf[bow_vector], key=lambda tup: -1*tup[1]):
-            print("Score: {}\t Topic: {}".format(score, lda_model_bow.print_topic(index, 5)))
+            print("Score: {}\t Topic: {}".format(score, lda_model_tfidf.print_topic(index, 5)))
 
 
 if __name__ == '__main__':
