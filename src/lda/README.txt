@@ -1,0 +1,1 @@
+Simplified and based on: https://github.com/susanli2016/NLP-with-Python/blob/master/LDA_news_headlines.ipynb
