@@ -12,8 +12,10 @@ stopwords = set(stopwords.words('english'))
 def preprocess(file_path: str):
     # loading
     print('Loading data')
-    df = pd.read_csv(file_path, error_bad_lines=False, header=0, usecols=['TITLE', 'CATEGORY'], nrows=10)
+    df = pd.read_csv(file_path, error_bad_lines=False, header=0, usecols=['TITLE', 'CATEGORY'])
     df.columns = ['title', 'class']
+    print('Data loaded')
+
     df['title_original'] = df['title']
 
     # lowercasing
