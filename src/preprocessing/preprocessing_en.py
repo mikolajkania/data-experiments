@@ -6,14 +6,17 @@ from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
 
 
+# todo know issues: id=93873, cause of apostrophe it concatenates mulitple rows
+
+
 stopwords = set(stopwords.words('english'))
 
 
 def preprocess(file_path: str):
     # loading
     print('Loading data')
-    df = pd.read_csv(file_path, error_bad_lines=False, header=0, usecols=['TITLE', 'CATEGORY'])
-    df.columns = ['title', 'class']
+    df = pd.read_csv(file_path, error_bad_lines=False, header=0, usecols=['ID', 'TITLE', 'CATEGORY'])
+    df.columns = ['id', 'title', 'class']
     print('Data loaded')
 
     df['title_original'] = df['title']
