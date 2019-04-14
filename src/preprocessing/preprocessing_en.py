@@ -19,6 +19,7 @@ def preprocess(file_path: str):
     df.columns = ['id', 'title', 'class']
     print('Data loaded')
 
+    print('Actual preprocessing start')
     df['title_original'] = df['title']
 
     # lowercasing
@@ -47,6 +48,8 @@ def preprocess(file_path: str):
 
     df['title_stem'] = df['title'].apply(stem_text)
     df['title_lemma'] = df['title'].apply(lemmatize_text)
+
+    print('Actual preprocessing end')
 
     return df
 
