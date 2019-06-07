@@ -23,12 +23,12 @@ if __name__ == '__main__':
     print(vectorizer.get_feature_names()[:10])
 
     print('TruncatedSVD')
-    clf = TruncatedSVD(n_components=100)
-    X_pca = clf.fit_transform(X)
+    svd = TruncatedSVD(n_components=100)
+    X_svd = svd.fit_transform(X)
 
     print('TSNE')
     tsne = TSNE(n_components=2, verbose=1)
-    X_2d = tsne.fit_transform(X_pca)
+    X_2d = tsne.fit_transform(X_svd)
 
     print('Plotting')
     plt.figure(figsize=(6, 5))
