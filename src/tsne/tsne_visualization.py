@@ -23,8 +23,9 @@ if __name__ == '__main__':
     print(vectorizer.get_feature_names()[:10])
 
     print('TruncatedSVD')
-    svd = TruncatedSVD(n_components=100)
+    svd = TruncatedSVD(n_components=500)
     X_svd = svd.fit_transform(X)
+    print('EVR sum=' + str(svd.explained_variance_ratio_.sum()))
 
     print('TSNE')
     tsne = TSNE(n_components=2, verbose=1)
