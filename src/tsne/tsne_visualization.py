@@ -22,13 +22,8 @@ def save(object, name: str):
 
 
 if __name__ == '__main__':
-    df: pd.DataFrame = preprocess('../../resources/uci-news-aggregator.csv')
-    classes = ['b', 't', 'e', 'm']
-
-    X = df['title']
-    y = df['class']
-
     params = {
+        'rows': 44000,
         'use_cache': False,
         'model_name': 'svd',
         'svd_components': 500,
@@ -36,6 +31,13 @@ if __name__ == '__main__':
         'min_df': 5,
         'max_df': 0.25
     }
+
+    df: pd.DataFrame = preprocess('../../resources/uci-news-aggregator.csv', rows=params['rows'])
+    labels = ['b', 't', 'e', 'm']
+
+    X = df['title']
+    y = df['class']
+
     print('Params=' + str(params))
 
     print('Vectorizer')
@@ -44,7 +46,7 @@ if __name__ == '__main__':
     print(vectorizer.get_feature_names()[:10])
 
     print('TruncatedSVD')
-    full_model_name = params['model_name'] + '_' + str(params['svd_components'])
+    full_model_name = params['model_name'] + '_' + str(params['svd_components']) + '_' + str(params['rows'])
     if params['use_cache']:
         svd: TruncatedSVD = load(full_model_name)
     else:
@@ -58,10 +60,17 @@ if __name__ == '__main__':
     tsne = TSNE(n_components=params['tsne_components'], verbose=1)
     X_2d = tsne.fit_transform(X_svd)
 
-    print('Plotting')
+    print('Plotting 1')
     plt.figure(figsize=(6, 5))
     colors = 'r', 'g', 'b', 'c', 'm', 'y', 'k', 'w', 'orange', 'purple'
-    for i, c, label in zip(classes, colors, classes):
-        plt.scatter(X_2d[y == i, 0], X_2d[y == i, 1], c=c, label=label)
+    for i, l, label in zip(labels, colors, labels):
+        plt.scatter(X_2d[y == i, 0], X_2d[y == i, 1], c=l, label=label)
     plt.legend()
     plt.show()
+
+    print('Plotting 2')
+    from yellowbrick.text import TSNEVisualizer
+
+    tsne = TSNEVisualizer(decompose=None, decompose_by=params['svd_components'], labels=labels)
+    tsne.fit(X_svd, y)
+    tsne.poof()

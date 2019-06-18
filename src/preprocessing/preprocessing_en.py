@@ -12,10 +12,13 @@ from nltk.corpus import stopwords
 stopwords = set(stopwords.words('english'))
 
 
-def preprocess(file_path: str):
+def preprocess(file_path: str, rows=-1):
     # loading
     print('Loading data')
-    df = pd.read_csv(file_path, error_bad_lines=False, header=0, usecols=['ID', 'TITLE', 'CATEGORY'])
+    if rows == -1:
+        df = pd.read_csv(file_path, error_bad_lines=False, header=0, usecols=['ID', 'TITLE', 'CATEGORY'])
+    else:
+        df = pd.read_csv(file_path, nrows=rows, error_bad_lines=False, header=0, usecols=['ID', 'TITLE', 'CATEGORY'])
     df.columns = ['id', 'title', 'class']
     print('Data loaded')
 
