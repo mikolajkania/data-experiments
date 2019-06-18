@@ -3,6 +3,7 @@ import pickle
 
 import matplotlib.pyplot as plt
 import pandas as pd
+import numpy as np
 from sklearn.decomposition import TruncatedSVD
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.manifold import TSNE
@@ -26,7 +27,7 @@ if __name__ == '__main__':
         'rows': 44000,
         'use_cache': False,
         'model_name': 'svd',
-        'svd_components': 500,
+        'svd_components': 2000,
         'tsne_components': 2,
         'min_df': 5,
         'max_df': 0.25
@@ -55,6 +56,17 @@ if __name__ == '__main__':
         save(svd, full_model_name)
     X_svd = svd.transform(X)
     print('EVR sum=' + str(svd.explained_variance_ratio_.sum()))
+
+    print('Plotting svd vs true variance')
+    plt.plot(svd.explained_variance_ratio_, label='svd explained variance')
+    variances = np.var(X_svd, axis=0)
+    total_variance = np.var(X.todense(), axis=0).sum()
+    true_explained_variance_ratio = variances / total_variance
+    plt.plot(true_explained_variance_ratio, label='true explained variance')
+    plt.legend(loc='best')
+    plt.xlabel('svd components')
+    plt.ylabel('fraction of total variance')
+    plt.show()
 
     print('TSNE')
     tsne = TSNE(n_components=params['tsne_components'], verbose=1)
