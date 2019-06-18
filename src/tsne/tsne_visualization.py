@@ -57,15 +57,9 @@ if __name__ == '__main__':
     X_svd = svd.transform(X)
     print('EVR sum=' + str(svd.explained_variance_ratio_.sum()))
 
-    print('Plotting svd vs true variance')
-    plt.plot(svd.explained_variance_ratio_, label='svd explained variance')
-    variances = np.var(X_svd, axis=0)
-    total_variance = np.var(X.todense(), axis=0).sum()
-    true_explained_variance_ratio = variances / total_variance
-    plt.plot(true_explained_variance_ratio, label='true explained variance')
-    plt.legend(loc='best')
-    plt.xlabel('svd components')
-    plt.ylabel('fraction of total variance')
+    plt.plot(np.cumsum(svd.explained_variance_ratio_))
+    plt.xlabel('number of components')
+    plt.ylabel('cumulative explained variance')
     plt.show()
 
     print('TSNE')
