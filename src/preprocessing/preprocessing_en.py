@@ -5,14 +5,13 @@ from nltk.tokenize import WhitespaceTokenizer
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
 
-
 # todo know issues: id=93873, cause of apostrophe it concatenates mulitple rows
 
 
 stopwords = set(stopwords.words('english'))
 
 
-def preprocess(file_path: str, rows=-1):
+def preprocess(file_path: str, rows=-1, stop=True, stemm=True):
     # loading
     print('Loading data')
     if rows == -1:
@@ -34,23 +33,25 @@ def preprocess(file_path: str, rows=-1):
     # stopwords removal
     tokenizer = WhitespaceTokenizer()
 
-    def remove_stopwords(text):
-        return ' '.join(t for t in tokenizer.tokenize(text) if t not in stopwords)
+    if stop:
+        def remove_stopwords(text):
+            return ' '.join(t for t in tokenizer.tokenize(text) if t not in stopwords)
 
-    df['title'] = df['title'].apply(remove_stopwords)
+        df['title'] = df['title'].apply(remove_stopwords)
 
     # stemming
-    stemmer = PorterStemmer()
-    lemmatizer = WordNetLemmatizer()
+    if stemm:
+        stemmer = PorterStemmer()
+        lemmatizer = WordNetLemmatizer()
 
-    def stem_text(text):
-        return ' '.join([stemmer.stem(t) for t in tokenizer.tokenize(text)])
+        def stem_text(text):
+            return ' '.join([stemmer.stem(t) for t in tokenizer.tokenize(text)])
 
-    def lemmatize_text(text):
-        return ' '.join([lemmatizer.lemmatize(t) for t in tokenizer.tokenize(text)])
+        def lemmatize_text(text):
+            return ' '.join([lemmatizer.lemmatize(t) for t in tokenizer.tokenize(text)])
 
-    df['title_stem'] = df['title'].apply(stem_text)
-    df['title_lemma'] = df['title'].apply(lemmatize_text)
+        df['title_stem'] = df['title'].apply(stem_text)
+        df['title_lemma'] = df['title'].apply(lemmatize_text)
 
     print('Actual preprocessing end')
 

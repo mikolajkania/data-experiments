@@ -10,7 +10,7 @@ sys.path.append('..')
 from preprocessing.preprocessing_en import preprocess
 
 print('Preprocessing data')
-df: pd.DataFrame = preprocess('../../resources/uci-news-aggregator.csv')
+df: pd.DataFrame = preprocess(file_path='../../resources/uci-news-aggregator.csv', stemming=False)
 
 print('Creating model')
 sentences = list(df['title'])
