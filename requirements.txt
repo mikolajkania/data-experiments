@@ -14,3 +14,5 @@ yellowbrick==0.9.1
 scikit-plot==0.3.7
 cython==0.29.13
 gensim==3.8.0
+keras==2.2.5
+tensorflow-gpu==1.14.0
