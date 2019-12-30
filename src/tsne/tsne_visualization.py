@@ -48,7 +48,7 @@ if __name__ == '__main__':
         'max_df': 0.25
     }
 
-    df: pd.DataFrame = preprocess('../../resources/uci-news-aggregator.csv', rows=params['rows'])
+    df: pd.DataFrame = preprocess('../../resources/uci-news-aggregator.csv', rows=params['rows'], stemm=False)
     labels = ['b', 't', 'e', 'm']
 
     X = df['title']
