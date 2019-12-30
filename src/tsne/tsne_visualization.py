@@ -10,6 +10,21 @@ from sklearn.manifold import TSNE
 
 sys.path.append('..')
 
+# tokens: 422 419 for min_df=5, max_df=0.25, i_iter=5; for bigger values it required more than 16GB of RAM
+# svd_components / EVR
+# 10   / 0.020065668406173024
+# 20   / 0.034024560030019024
+# 50   / 0.0653887673737613
+# 100  / 0.10454540835468916
+# 200  / 0.1633134157358559
+# 500  / 0.2801729330821833
+# 1000 / 0.4042387142333503
+# 1500 / 0.4905397745045663
+# 2000 / 0.5552525728609641
+# 3000 / 0.6490454190312016
+# 4000 / 0.9128349871927357
+# 5000 / 0.9550601876255402
+
 from preprocessing.preprocessing_en import preprocess
 
 
@@ -27,7 +42,7 @@ if __name__ == '__main__':
         'rows': 44000,
         'use_cache': False,
         'model_name': 'svd',
-        'svd_components': 2000,
+        'svd_components': 5000,
         'tsne_components': 2,
         'min_df': 5,
         'max_df': 0.25
