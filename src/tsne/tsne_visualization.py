@@ -24,6 +24,8 @@ sys.path.append('..')
 # 3000 / 0.6490454190312016
 # 4000 / 0.9128349871927357
 # 5000 / 0.9550601876255402
+# 6000 / 0.9841884635486235
+# 7017 / 1.0
 
 from preprocessing.preprocessing_en import preprocess
 
@@ -42,7 +44,7 @@ if __name__ == '__main__':
         'rows': 44000,
         'use_cache': False,
         'model_name': 'svd',
-        'svd_components': 5000,
+        'svd_components': 7017,
         'tsne_components': 2,
         'min_df': 5,
         'max_df': 0.25
